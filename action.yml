@@ -1,0 +1,33 @@
+name: agent-wallet-check
+description: Static checks for AI agents that hold wallets or move money (keys, spending limits, untrusted input, x402 ceilings).
+author: Infinite Bayas
+branding:
+  icon: shield
+  color: gray-dark
+inputs:
+  path:
+    description: Folder or file to scan.
+    default: .
+  format:
+    description: text, json or sarif.
+    default: text
+  output:
+    description: File to write the report to (empty prints to the log).
+    default: ''
+  fail-on:
+    description: error, warning, note or none.
+    default: error
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        AWC_PATH: ${{ inputs.path }}
+        AWC_FORMAT: ${{ inputs.format }}
+        AWC_OUTPUT: ${{ inputs.output }}
+        AWC_FAIL_ON: ${{ inputs.fail-on }}
+        AWC_CLI: ${{ github.action_path }}/dist/cli.js
+      run: |
+        args=("$AWC_PATH" --format "$AWC_FORMAT" --fail-on "$AWC_FAIL_ON")
+        if [ -n "$AWC_OUTPUT" ]; then args+=(--output "$AWC_OUTPUT"); fi
+        node "$AWC_CLI" "${args[@]}"

@@ -1,0 +1,30 @@
+{
+  "name": "agent-wallet-check",
+  "version": "0.1.0",
+  "description": "Static checks for AI agents that hold wallets or move money: hardcoded keys, money tools without limits, untrusted input, float amounts, x402 auto-pay without a ceiling.",
+  "license": "MIT",
+  "author": "Infinite Bayas (https://inspect.infinitebayas.com)",
+  "homepage": "https://github.com/infinitebayas/agent-wallet-check#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infinitebayas/agent-wallet-check.git"
+  },
+  "bugs": "https://github.com/infinitebayas/agent-wallet-check/issues",
+  "keywords": ["ai-agents", "security", "wallet", "x402", "prompt-injection", "sarif", "static-analysis"],
+  "type": "module",
+  "bin": {
+    "agent-wallet-check": "dist/cli.js"
+  },
+  "files": ["dist", "action.yml", "LICENSE", "README.md", "SECURITY.md", "CHANGELOG.md"],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/check.test.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.7",
+    "typescript": "7.0.2"
+  }
+}
